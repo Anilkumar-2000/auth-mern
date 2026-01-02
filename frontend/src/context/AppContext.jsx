@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import api from "../lib/api";
+import api from "../lib/axiosInstance";
 
 export const AppContext = createContext();
 
