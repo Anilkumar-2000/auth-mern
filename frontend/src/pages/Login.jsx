@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
+import api from "../lib/axiosInstance"
 
 const Login = () => {
   const [state, setState] = useState("Sign Up");
@@ -24,10 +25,10 @@ const Login = () => {
   
   const submitForm = async (e) => {
     e.preventDefault();
-    axios.defaults.withCredentials = true;
+   
     try {
       if (state === "Sign Up") {
-        const { data } = await axios.post(backendUrl + "/api/auth/register", {
+        const { data } = await api.post(backendUrl + "/api/auth/register", {
           name: formData.name,
           email: formData.email,
           password: formData.password,
@@ -42,7 +43,7 @@ const Login = () => {
           toast.error(error.response?.data?.message);
         }
       } else {
-        const { data } = await axios.post(backendUrl + "/api/auth/login", {
+        const { data } = await api.post(backendUrl + "/api/auth/login", {
           email: formData.email,
           password: formData.password,
         });
