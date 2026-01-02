@@ -8,10 +8,10 @@ export const AppContextProvider = (props) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);
+  axios.defaults.withCredentials = true;
 
   const getAuthState = async () => {
     try {
-      axios.defaults.withCredentials = true;
       const { data } = await axios.get(backendUrl + "/api/auth/is-auth");
 
       if (data.success) {
@@ -25,7 +25,7 @@ export const AppContextProvider = (props) => {
 
   const getUserData = async () => {
     try {
-      axios.defaults.withCredentials = true;
+      
       const { data } = await axios.get(backendUrl + "/api/user/data");
 
       data.success ? setUserData(data.userData) : toast.error(data.message);
