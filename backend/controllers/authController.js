@@ -311,7 +311,13 @@ export const resetPassword = async (req, res) => {
 
 // User Authentication End Point
 export const isAuthenticated = async (req, res) => {
+   const { token } = req.cookies;
+
+  if (!token) {
+    return res.status(401).json({ success: false, message: "token is not available"});
+  }
   try {
+    jwt.verify(token, process.env.JWT_SECRET)
     res.status(200).json({ success: true, message: "User Authenticated" });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
