@@ -9,7 +9,7 @@ import userRouter from "./routes/userRoute.js";
 const app = express();
 const port = process.env.PORT || 4000;
 
-const allowedOrigins = [process.env.CLIENT_URL];
+const allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:5173'];
 console.log(allowedOrigins);
 
 app.use(
