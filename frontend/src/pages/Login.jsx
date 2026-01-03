@@ -40,7 +40,7 @@ const Login = () => {
           getUserData();
           navigate("/");
         } else {
-          toast.error(error.response?.data?.message);
+          toast.error(error.response.data.message);
         }
       } else {
         const { data } = await api.post(backendUrl + "/api/auth/login", {
@@ -54,7 +54,7 @@ const Login = () => {
           getUserData();
           navigate("/");
         } else {
-          toast.error(data.message);
+             toast.error(error.response.data.message);
         }
       }
     } catch (error) {
