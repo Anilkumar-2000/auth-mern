@@ -17,7 +17,7 @@ export const AppContextProvider = (props) => {
 
       if (data.success) {
         setIsLoggedIn(true);
-        getUserData();
+        await getUserData();
       }
     } catch (error) {
       toast.error(error.message);
