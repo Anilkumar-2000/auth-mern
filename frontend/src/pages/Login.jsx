@@ -37,8 +37,8 @@ const Login = () => {
         if (data.success) {
           setIsLoggedIn(true);
           toast.success(data.message);
-          getUserData();
-          navigate("/");
+          await getUserData();
+             setTimeout(() => navigate("/"), 500);
         } else {
           toast.error(error.response.data.message);
         }
@@ -51,14 +51,12 @@ const Login = () => {
         if (data.success) {
           setIsLoggedIn(true);
           toast.success(data.message);
-          getUserData();
-          navigate("/");
-        } else {
-             toast.error(error.response.data.message);
-        }
+          await getUserData();
+         setTimeout(() => navigate("/"), 500);
+        } 
       }
     } catch (error) {
-      toast.error(error.response?.data?.message);
+      toast.error(error.response.data.message);
     }
   };
 
