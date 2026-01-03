@@ -8,6 +8,8 @@ import {
   WELCOME_EMAIL_TEMPLATE,
 } from "../config/emailTemplate.js";
 
+import { generateToken } from "../utils/generateToken.js";
+
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -36,16 +38,7 @@ export const register = async (req, res) => {
 
     await user.save();
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+   generateToken(res, user._id)
 
     const mailOptions = {
       from: process.env.SENDER_EMAIL,
@@ -91,16 +84,7 @@ export const login = async (req, res) => {
         .json({ success: false, message: "Invalid Password" });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+   generateToken(res, user._id)
 
     res.status(200).json({ success: true, message: "Logged in successfully" });
   } catch (error) {
